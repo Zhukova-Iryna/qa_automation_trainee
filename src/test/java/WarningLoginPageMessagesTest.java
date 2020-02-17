@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import java.util.concurrent.TimeUnit;
 
 public class WarningLoginPageMessagesTest {
-    @Test
+    /*@Test
     public void firstTest(){
         System.setProperty("webdriver.chrome.driver","src/main/resources/properties/chromedriver.exe");
         ChromeDriver driver = new ChromeDriver();
@@ -29,5 +29,5 @@ public class WarningLoginPageMessagesTest {
         Assert.assertTrue(blankEmailMessage.contains("Необходимо заполнить поле «Адрес электронной почты»."));
         System.out.println(blankPasswordMessage);
         //driver.quit();
-    }
+    }*/
 }

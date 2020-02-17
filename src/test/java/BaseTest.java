@@ -1,11 +1,8 @@
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.testng.annotations.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -31,11 +28,15 @@ public class BaseTest {
                 System.setProperty("webdriver.gecko.driver", "src/main/resources/properties/gecodriver.exe");
                 driver = new FirefoxDriver();
                 break;
+            case "ie":
+                System.setProperty("webdriver.ie.driver", "src/main/resources/properties/IEDriverServer.exe");
+                driver = new FirefoxDriver();
+                break;
             default: throw new IllegalArgumentException("Unknown browser" + browser);
         }
     }
 
-    @AfterClass(alwaysRun = true)
+    @AfterMethod(alwaysRun = true)
     public void tearDown() throws Exception {
         driver.quit();
     }
