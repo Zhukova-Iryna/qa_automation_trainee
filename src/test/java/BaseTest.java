@@ -4,8 +4,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.testng.annotations.*;
 
-import java.io.IOException;
-import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 
@@ -38,8 +36,7 @@ public class BaseTest {
         }
     }
 
-
-        @AfterMethod(alwaysRun = true)
+    @AfterMethod(alwaysRun = true)
     public void tearDown() throws Exception {
         driver.quit();
     }

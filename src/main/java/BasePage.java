@@ -12,8 +12,8 @@ public class BasePage {
 
     // Enter text to text field
     public static void enterTextInTextField(WebElement textField, String inputText) {
-        textField.click();
-        textField.clear();
+        /*extField.click();
+        textField.clear();*/
         textField.sendKeys(inputText);
     }
 
