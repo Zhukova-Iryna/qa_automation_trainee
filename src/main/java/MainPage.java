@@ -1,59 +1,61 @@
+import org.assertj.core.api.Assert;
+import org.assertj.core.api.Assertions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MainPage extends BasePage {
 
     @FindBy(id = "auth-user-block")
-    WebElement loginLink;
+    private WebElement loginLink;
 
     @FindBy(id = "header-user-link")
-    WebElement userAccount;
+    private WebElement userAccount;
 
     @FindBy(id = "SearchForm_searchPhrase")
-    WebElement searchField;
+    private WebElement searchField;
 
     @FindBy(id = "LoginForm_username")
-    WebElement emailField;
+    private WebElement emailField;
 
     @FindBy(id = "login_user_password")
-    WebElement passwordField;
+    private WebElement passwordField;
 
     @FindBy(xpath = ".//div[contains(@class,'pt_20')]")
-    WebElement submitLogin;
+    private WebElement submitLogin;
 
     @FindBy(id = "go-tab-recovery")
-    WebElement recoveryPasswordLink;
+    private WebElement recoveryPasswordLink;
 
     @FindBy(id = "go-tab-userregister")
-    WebElement registrationTab;
-
-    @FindBy(id = "LoginForm_username")
-    WebElement loginField;
+    private WebElement registrationTab;
 
     @FindBy(id = "login_user_password")
-   WebElement passField;
+    private WebElement passField;
 
     @FindBy(xpath = ".//div[contains(@class,'pt_20')]")
-    WebElement submitButton;
+    private WebElement submitButton;
 
-    @FindBy(xpath = ".//div[@class='error-text']")
-    WebElement errorLabel;
+    @FindBy(xpath = ".//div[@class='error-text'][contains(text(),'.')]")
+    private WebElement errorLabel;
 
     @FindBy(id = "RegisterUserFirmForm_user_email")
-    WebElement regEmailField;
+    private WebElement regEmailField;
 
     @FindBy(id = "user_user_password")
-    WebElement regPasswordField;
+    private WebElement regPasswordField;
 
     @FindBy(xpath = "//div[contains(@class,'mt_10')]")
-    WebElement submitRegistration;
+    private WebElement submitRegistration;
 
     @FindBy(id = "SearchForm_searchPhrase")
-    WebElement searchInput;
+    private WebElement searchInput;
 
-    @FindBy(xpath = "//div[@class='form-wrap clearer-block']//span[@class^='soc-btn-facebook ga_user_login_page_social_click'][contains(text(),'facebook')]")
+    /*@FindBy(xpath = "//div[@class='form-wrap clearer-block']//span[@class^='soc-btn-facebook ga_user_login_page_social_click'][contains(text(),'facebook')]")
     WebElement authByFacebook;
 
     @FindBy(xpath = "//div[@class='form-wrap clearer-block']//span[@class='soc-btn-twitter ga_user_login_page_social_click'][contains(text(),'twitter')]")
@@ -80,51 +82,42 @@ public class MainPage extends BasePage {
     @FindBy(xpath = "//div[@class='right-block-inputs']//div[3]//div[1]")
     WebElement blankRegPasswordFieldMessage;
 
-    @FindBy(xpath = "//button[@class='ui-button ui-corner-all ui-widget ui-button-icon-only ui-dialog-titlebar-close ga_user_login_popup_close ga_register_user_popup_close']")
-    WebElement closeFormButton;
+    @FindBy(xpath = "//button[contains(@class,'ga_register_user_popup_close']")
+    WebElement closeFormButton;*/
 
     public MainPage(WebDriver driver){
         super(driver);
     }
 
-    //open login form
-    public void openLoginForm() {
-        loginLink.click();
-    }
-
-    //switch to registration tab
-    public void switchToRegistration() {
-        //new Utils(driver).waitWhenAppearElem(registrationTab);
-        registrationTab.click();
-    }
-
-    //enter email text
-    public void enterLogin(String email) {
-        enterTextInTextField(loginField, email);
-    }
-
-    // enter password
-    public void enterPassword(String password) {
-        enterTextInTextField(passField, password);
-    }
-
-    // click Submit Button
-    public void submit() {
+    // Fill login form and submit
+    public void fillLoginForm(String email, String password) {
+        clickWebElement(loginLink);
+        enterTextInTextField(emailField, email);
+        enterTextInTextField(passwordField, password);
         clickWebElement(submitButton);
     }
 
-    //get title from login button
+    // Tab to registration and fill registration form and submit
+    public void fillRegistrationForm(String email, String password) {
+        clickWebElement(loginLink);
+        clickWebElement(registrationTab);
+        enterTextInTextField(regEmailField, email);
+        enterTextInTextField(regPasswordField, password);
+        clickWebElement(submitRegistration);
+    }
+
+    // Get title from login button
     public String getAccountName() {
-        new Utils(driver).waitWhenAppearElem(loginLink);
         return userAccount.getText();
     }
 
-    //check is error message appears
+    // Check is error message appears
     public boolean checkErrorLoginMessageAppears() {
+        System.out.println(errorLabel.getText());
         return errorLabel.isDisplayed();
     }
 
-    //fill search field and open search result page
+    // Fill search field and open search result page
     public void runSearch(String searchRequest) {
         searchInput.sendKeys(searchRequest + Keys.ENTER);
     }
